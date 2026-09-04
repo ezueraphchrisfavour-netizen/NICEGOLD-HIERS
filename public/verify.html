@@ -1,0 +1,580 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>NICEGOLD HIERS | Verify Member</title>
+
+<style>
+
+*{
+    box-sizing:border-box;
+    margin:0;
+    padding:0;
+    font-family:Arial,sans-serif;
+}
+
+body{
+    min-height:100vh;
+    background:#020817;
+    color:white;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    padding:20px;
+    overflow:hidden;
+}
+
+/* BACKGROUND */
+
+.orb{
+    position:fixed;
+    width:280px;
+    height:280px;
+    border-radius:50%;
+    background:#006eff;
+    filter:blur(100px);
+    opacity:.3;
+    animation:float 7s infinite alternate ease-in-out;
+}
+
+.orb.one{
+    top:-100px;
+    left:-100px;
+}
+
+.orb.two{
+    bottom:-100px;
+    right:-100px;
+    animation-delay:2s;
+}
+
+@keyframes float{
+
+    from{
+        transform:translate(0,0);
+    }
+
+    to{
+        transform:translate(50px,40px);
+    }
+
+}
+
+/* CONTAINER */
+
+.container{
+    width:100%;
+    max-width:470px;
+    position:relative;
+    z-index:2;
+}
+
+/* BRAND */
+
+.brand{
+    text-align:center;
+    margin-bottom:25px;
+}
+
+.brand img{
+    width:75px;
+    height:75px;
+    object-fit:cover;
+    border-radius:50%;
+    border:3px solid #1888ff;
+    box-shadow:0 0 30px rgba(0,120,255,.6);
+}
+
+.brand h1{
+    margin-top:15px;
+    font-size:22px;
+}
+
+.brand p{
+    color:#83a8d1;
+    font-size:12px;
+    margin-top:7px;
+}
+
+/* CARD */
+
+.box{
+    background:rgba(7,25,50,.78);
+    backdrop-filter:blur(25px);
+    -webkit-backdrop-filter:blur(25px);
+
+    border:1px solid rgba(80,160,255,.3);
+
+    border-radius:25px;
+
+    padding:28px;
+
+    box-shadow:
+        0 0 45px rgba(0,110,255,.18),
+        inset 0 0 25px rgba(255,255,255,.025);
+}
+
+/* TITLE */
+
+.box h2{
+    text-align:center;
+    font-size:20px;
+}
+
+.subtitle{
+    text-align:center;
+    color:#8ba9cc;
+    font-size:12px;
+    margin-top:8px;
+    margin-bottom:25px;
+}
+
+/* INPUT */
+
+label{
+    display:block;
+    color:#91afd1;
+    font-size:11px;
+    margin-bottom:8px;
+}
+
+.input{
+    width:100%;
+    padding:15px;
+
+    background:rgba(255,255,255,.05);
+
+    border:1px solid rgba(255,255,255,.1);
+
+    border-radius:13px;
+
+    color:white;
+
+    outline:none;
+
+    font-size:14px;
+
+    text-align:center;
+
+    letter-spacing:1px;
+}
+
+.input:focus{
+    border-color:#1888ff;
+    box-shadow:0 0 18px rgba(0,120,255,.2);
+}
+
+.input::placeholder{
+    color:#5f7c9e;
+}
+
+/* BUTTON */
+
+.verify-btn{
+    width:100%;
+    margin-top:15px;
+
+    padding:15px;
+
+    border:none;
+    border-radius:13px;
+
+    background:#087cff;
+
+    color:white;
+
+    font-size:13px;
+    font-weight:bold;
+
+    cursor:pointer;
+
+    box-shadow:0 0 25px rgba(0,120,255,.3);
+
+    transition:.2s;
+}
+
+.verify-btn:hover{
+    transform:translateY(-2px);
+    box-shadow:0 0 30px rgba(0,120,255,.5);
+}
+
+/* RESULT */
+
+.result{
+    display:none;
+
+    margin-top:20px;
+
+    padding:20px;
+
+    border-radius:18px;
+
+    text-align:center;
+}
+
+/* VERIFIED */
+
+.result.verified{
+    background:rgba(0,200,120,.07);
+    border:1px solid rgba(0,255,160,.25);
+}
+
+.result.verified h3{
+    color:#54ffc0;
+    margin-bottom:8px;
+}
+
+.result.verified p{
+    color:#a5c8b9;
+    font-size:12px;
+}
+
+/* INVALID */
+
+.result.invalid{
+    background:rgba(255,50,80,.07);
+    border:1px solid rgba(255,70,100,.25);
+}
+
+.result.invalid h3{
+    color:#ff7189;
+    margin-bottom:8px;
+}
+
+.result.invalid p{
+    color:#c6a4aa;
+    font-size:12px;
+}
+
+/* MEMBER */
+
+.member-photo{
+    width:85px;
+    height:85px;
+
+    object-fit:cover;
+
+    border-radius:50%;
+
+    border:3px solid #1688ff;
+
+    margin-bottom:12px;
+
+    box-shadow:0 0 25px rgba(0,120,255,.4);
+}
+
+.member-name{
+    font-size:19px;
+    margin-bottom:6px;
+}
+
+.member-id{
+    color:#63adff;
+    font-size:12px;
+    font-weight:bold;
+}
+
+.card-link{
+    display:block;
+
+    margin-top:15px;
+
+    padding:12px;
+
+    border-radius:11px;
+
+    background:rgba(0,120,255,.12);
+
+    border:1px solid rgba(0,120,255,.25);
+
+    color:#72b8ff;
+
+    text-decoration:none;
+
+    font-size:11px;
+
+    font-weight:bold;
+}
+
+/* FOOTER */
+
+.footer{
+    text-align:center;
+    margin-top:20px;
+
+    color:#506b8c;
+
+    font-size:10px;
+}
+
+</style>
+
+</head>
+
+<body>
+
+<div class="orb one"></div>
+<div class="orb two"></div>
+
+
+<div class="container">
+
+    <!-- BRAND -->
+
+    <div class="brand">
+
+        <img
+            src="/logo.jpg"
+            alt="NICEGOLD HIERS"
+        >
+
+        <h1>
+            ✞𓉳 ⃝𝗡𝗜𝗖𝗘𝗚𝗢𝗟𝗗₊ ⃝ ＨＩＥＲ𝗦.𓃵
+        </h1>
+
+        <p>
+            DIGITAL MEMBER VERIFICATION
+        </p>
+
+    </div>
+
+
+    <!-- VERIFICATION BOX -->
+
+    <div class="box">
+
+        <h2>
+            VERIFY MEMBER ID
+        </h2>
+
+        <p class="subtitle">
+            Enter an approved member's verification ID
+        </p>
+
+
+        <label>
+            MEMBER VERIFICATION ID
+        </label>
+
+        <input
+            type="text"
+            id="memberId"
+            class="input"
+            placeholder="NGH-123456"
+            autocomplete="off"
+        >
+
+
+        <button
+            class="verify-btn"
+            onclick="verifyMember()"
+        >
+            🔎 VERIFY MEMBER
+        </button>
+
+
+        <!-- RESULT -->
+
+        <div
+            id="result"
+            class="result"
+        >
+
+        </div>
+
+    </div>
+
+
+    <div class="footer">
+
+        Official NICEGOLD HIERS Verification System
+
+    </div>
+
+</div>
+
+
+<script>
+
+async function verifyMember(){
+
+    const input =
+        document.getElementById("memberId");
+
+    const result =
+        document.getElementById("result");
+
+    const memberId =
+        input.value.trim().toUpperCase();
+
+
+    if(!memberId){
+
+        showInvalid(
+            "Please enter a verification ID."
+        );
+
+        return;
+
+    }
+
+
+    result.style.display = "block";
+
+    result.className = "result";
+
+    result.innerHTML =
+        "<p>Checking verification status...</p>";
+
+
+    try{
+
+        const response =
+            await fetch(
+                "/api/verify/" +
+                encodeURIComponent(memberId)
+            );
+
+
+        const data =
+            await response.json();
+
+
+        if(
+            response.ok &&
+            data.verified &&
+            data.member
+        ){
+
+            const member =
+                data.member;
+
+
+            result.className =
+                "result verified";
+
+
+            result.innerHTML = `
+
+                <img
+                    class="member-photo"
+                    src="${
+                        member.profileImage ||
+                        "/logo.jpg"
+                    }"
+                >
+
+                <h3>
+                    ✓ MEMBER VERIFIED
+                </h3>
+
+                <div class="member-name">
+                    ${escapeHTML(member.name)}
+                </div>
+
+                <div class="member-id">
+                    ${escapeHTML(member.memberId)}
+                </div>
+
+                <p style="margin-top:10px;">
+                    Verification confirmed by
+                    NICEGOLD HIERS.
+                </p>
+
+                <a
+                    class="card-link"
+                    href="/verify-card.html?id=${encodeURIComponent(member.memberId)}"
+                >
+                    VIEW DIGITAL ID CARD
+                </a>
+
+            `;
+
+        }else{
+
+            showInvalid(
+                "This member ID is not valid or has not been approved."
+            );
+
+        }
+
+
+    }catch(error){
+
+        console.error(error);
+
+        showInvalid(
+            "Unable to connect to the verification server."
+        );
+
+    }
+
+}
+
+
+function showInvalid(message){
+
+    const result =
+        document.getElementById("result");
+
+
+    result.className =
+        "result invalid";
+
+
+    result.style.display =
+        "block";
+
+
+    result.innerHTML = `
+
+        <h3>
+            ✕ NOT VERIFIED
+        </h3>
+
+        <p>
+            ${escapeHTML(message)}
+        </p>
+
+    `;
+
+}
+
+
+function escapeHTML(value){
+
+    const div =
+        document.createElement("div");
+
+    div.textContent =
+        value ?? "";
+
+    return div.innerHTML;
+
+}
+
+
+/* ENTER KEY */
+
+document
+    .getElementById("memberId")
+    .addEventListener(
+        "keydown",
+        function(event){
+
+            if(event.key === "Enter"){
+
+                verifyMember();
+
+            }
+
+        }
+    );
+
+</script>
+
+</body>
+  </html>

@@ -1,0 +1,1391 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <title>
+        NICEGOLD HIERS | Digital ID
+    </title>
+
+    <script
+        src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js">
+    </script>
+
+
+    <style>
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+
+        body {
+
+            min-height: 100vh;
+
+            font-family:
+                Arial,
+                Helvetica,
+                sans-serif;
+
+            background:
+                radial-gradient(
+                    circle at 20% 20%,
+                    rgba(0, 119, 255, 0.22),
+                    transparent 35%
+                ),
+                radial-gradient(
+                    circle at 80% 80%,
+                    rgba(0, 200, 255, 0.16),
+                    transparent 35%
+                ),
+                #030b18;
+
+            color: white;
+
+            display: flex;
+
+            justify-content: center;
+
+            align-items: center;
+
+            padding: 25px;
+
+        }
+
+
+        .container {
+
+            width: 100%;
+
+            max-width: 430px;
+
+            text-align: center;
+
+        }
+
+
+        .brand {
+
+            margin-bottom: 20px;
+
+            font-size: 20px;
+
+            font-weight: 900;
+
+            letter-spacing: 1px;
+
+        }
+
+
+        .loading {
+
+            padding: 30px;
+
+            border-radius: 20px;
+
+            background:
+                rgba(255,255,255,0.07);
+
+            border:
+                1px solid
+                rgba(255,255,255,0.12);
+
+            backdrop-filter:
+                blur(20px);
+
+        }
+
+
+        .spinner {
+
+            width: 42px;
+
+            height: 42px;
+
+            border:
+                4px solid
+                rgba(255,255,255,0.15);
+
+            border-top-color:
+                #2196ff;
+
+            border-radius: 50%;
+
+            animation:
+                spin 1s linear infinite;
+
+            margin:
+                0 auto 15px;
+
+        }
+
+
+        @keyframes spin {
+
+            to {
+                transform:
+                    rotate(360deg);
+            }
+
+        }
+
+
+        #idCard {
+
+            display: none;
+
+            width: 100%;
+
+            border-radius: 24px;
+
+            overflow: hidden;
+
+            background:
+
+                linear-gradient(
+                    145deg,
+                    #0a1d38,
+                    #061225
+                );
+
+            border:
+                1px solid
+                rgba(255,255,255,0.16);
+
+            box-shadow:
+                0 25px 70px
+                rgba(0,0,0,0.5);
+
+        }
+
+
+        .cardTop {
+
+            padding: 24px 20px 18px;
+
+            background:
+                linear-gradient(
+                    135deg,
+                    #0d4e91,
+                    #071c38
+                );
+
+        }
+
+
+        .cardBrand {
+
+            font-size: 15px;
+
+            font-weight: 900;
+
+            letter-spacing: 1px;
+
+            margin-bottom: 18px;
+
+        }
+
+
+        .profile {
+
+            width: 105px;
+
+            height: 105px;
+
+            border-radius: 50%;
+
+            object-fit: cover;
+
+            border:
+                4px solid
+                rgba(255,255,255,0.9);
+
+            display: block;
+
+            margin:
+                0 auto 14px;
+
+            background: #08182c;
+
+        }
+
+
+        .memberName {
+
+            font-size: 23px;
+
+            font-weight: 900;
+
+            word-break: break-word;
+
+        }
+
+
+        .verified {
+
+            display: inline-block;
+
+            margin-top: 8px;
+
+            padding: 6px 13px;
+
+            border-radius: 30px;
+
+            background:
+                rgba(30, 200, 120, 0.15);
+
+            border:
+                1px solid
+                rgba(30, 220, 130, 0.4);
+
+            color: #55f09a;
+
+            font-size: 12px;
+
+            font-weight: 800;
+
+        }
+
+
+        .cardBody {
+
+            padding: 22px 20px;
+
+        }
+
+
+        .details {
+
+            display: grid;
+
+            gap: 12px;
+
+            text-align: left;
+
+        }
+
+
+        .detail {
+
+            padding: 12px 14px;
+
+            border-radius: 13px;
+
+            background:
+                rgba(255,255,255,0.045);
+
+            border:
+                1px solid
+                rgba(255,255,255,0.07);
+
+        }
+
+
+        .label {
+
+            display: block;
+
+            font-size: 10px;
+
+            color:
+                rgba(255,255,255,0.55);
+
+            text-transform:
+                uppercase;
+
+            letter-spacing: 1px;
+
+            margin-bottom: 5px;
+
+        }
+
+
+        .value {
+
+            font-size: 14px;
+
+            font-weight: 700;
+
+            word-break: break-word;
+
+        }
+
+
+        .qrSection {
+
+            margin-top: 20px;
+
+            padding-top: 20px;
+
+            border-top:
+                1px solid
+                rgba(255,255,255,0.08);
+
+        }
+
+
+        .qrTitle {
+
+            font-size: 12px;
+
+            font-weight: 800;
+
+            margin-bottom: 10px;
+
+            color:
+                rgba(255,255,255,0.75);
+
+        }
+
+
+        .qrBox {
+
+            width: 190px;
+
+            height: 190px;
+
+            margin: 0 auto;
+
+            padding: 10px;
+
+            background: white;
+
+            border-radius: 15px;
+
+            display: flex;
+
+            justify-content: center;
+
+            align-items: center;
+
+        }
+
+
+        #qrImage {
+
+            width: 170px;
+
+            height: 170px;
+
+            display: block;
+
+            object-fit: contain;
+
+        }
+
+
+        #qrLoading {
+
+            color: #111;
+
+            font-size: 12px;
+
+            font-weight: 800;
+
+        }
+
+
+        #qrStatus {
+
+            margin-top: 10px;
+
+            font-size: 11px;
+
+            font-weight: 800;
+
+            color:
+                #58e69b;
+
+        }
+
+
+        .footer {
+
+            margin-top: 18px;
+
+            font-size: 10px;
+
+            color:
+                rgba(255,255,255,0.4);
+
+            line-height: 1.5;
+
+        }
+
+
+        #buttons {
+
+            display: none;
+
+            gap: 12px;
+
+            margin-top: 18px;
+
+        }
+
+
+        button {
+
+            flex: 1;
+
+            border: none;
+
+            padding: 14px 12px;
+
+            border-radius: 13px;
+
+            font-size: 13px;
+
+            font-weight: 900;
+
+            cursor: pointer;
+
+        }
+
+
+        #saveButton {
+
+            color: white;
+
+            background:
+                linear-gradient(
+                    135deg,
+                    #087cff,
+                    #0054c7
+                );
+
+        }
+
+
+        #homeButton {
+
+            color: white;
+
+            background:
+                rgba(255,255,255,0.08);
+
+            border:
+                1px solid
+                rgba(255,255,255,0.12);
+
+        }
+
+
+        button:disabled {
+
+            opacity: 0.6;
+
+            cursor:
+                not-allowed;
+
+        }
+
+
+        #errorBox {
+
+            display: none;
+
+            padding: 25px;
+
+            border-radius: 20px;
+
+            background:
+                rgba(255,70,70,0.08);
+
+            border:
+                1px solid
+                rgba(255,80,80,0.25);
+
+        }
+
+
+        .errorTitle {
+
+            font-size: 20px;
+
+            font-weight: 900;
+
+            margin-bottom: 8px;
+
+        }
+
+
+        #errorMessage {
+
+            color:
+                rgba(255,255,255,0.7);
+
+            font-size: 13px;
+
+        }
+
+    </style>
+
+</head>
+
+
+<body>
+
+
+    <div class="container">
+
+
+        <div class="brand">
+
+            ✞𓉳 ⃝𝗡𝗜𝗖𝗘𝗚𝗢𝗟𝗗₊ ⃝ ＨＩ𝗘𝗥𝗦.𓃵
+
+        </div>
+
+
+        <div
+            id="loading"
+            class="loading"
+        >
+
+            <div class="spinner"></div>
+
+            <div>
+                Loading digital identity...
+            </div>
+
+        </div>
+
+
+        <div id="errorBox">
+
+            <div class="errorTitle">
+                Verification Failed
+            </div>
+
+            <div id="errorMessage">
+                Unable to verify this member.
+            </div>
+
+        </div>
+
+
+        <div id="idCard">
+
+
+            <div class="cardTop">
+
+
+                <div class="cardBrand">
+
+                    ✞ NICEGOLD HIERS ✞
+
+                </div>
+
+
+                <img
+                    id="profileImage"
+                    class="profile"
+                    src="/logo.jpg"
+                    crossorigin="anonymous"
+                    alt="Member"
+                >
+
+
+                <div
+                    id="memberName"
+                    class="memberName"
+                >
+                    N/A
+                </div>
+
+
+                <div class="verified">
+                    ✓ VERIFIED MEMBER
+                </div>
+
+
+            </div>
+
+
+            <div class="cardBody">
+
+
+                <div class="details">
+
+
+                    <div class="detail">
+
+                        <span class="label">
+                            Member ID
+                        </span>
+
+                        <span
+                            id="memberId"
+                            class="value"
+                        >
+                            N/A
+                        </span>
+
+                    </div>
+
+
+                    <div class="detail">
+
+                        <span class="label">
+                            Gender
+                        </span>
+
+                        <span
+                            id="gender"
+                            class="value"
+                        >
+                            N/A
+                        </span>
+
+                    </div>
+
+
+                    <div class="detail">
+
+                        <span class="label">
+                            Phone
+                        </span>
+
+                        <span
+                            id="phone"
+                            class="value"
+                        >
+                            N/A
+                        </span>
+
+                    </div>
+
+
+                    <div class="detail">
+
+                        <span class="label">
+                            Verification Date
+                        </span>
+
+                        <span
+                            id="verificationDate"
+                            class="value"
+                        >
+                            N/A
+                        </span>
+
+                    </div>
+
+
+                </div>
+
+
+                <div class="qrSection">
+
+
+                    <div class="qrTitle">
+
+                        SCAN TO VERIFY MEMBER
+
+                    </div>
+
+
+                    <div class="qrBox">
+
+
+                        <span id="qrLoading">
+                            Loading QR...
+                        </span>
+
+
+                        <img
+                            id="qrImage"
+                            style="display:none;"
+                            alt="Verification QR Code"
+                        >
+
+
+                    </div>
+
+
+                    <div id="qrStatus">
+
+                        GENERATING QR...
+
+                    </div>
+
+
+                </div>
+
+
+                <div class="footer">
+
+                    This digital identity can be verified
+                    through the NICEGOLD HIERS verification portal.
+
+                </div>
+
+
+            </div>
+
+
+        </div>
+
+
+        <div id="buttons">
+
+
+            <button
+                id="saveButton"
+                onclick="saveIDCard()"
+            >
+                SAVE ID CARD
+            </button>
+
+
+            <button
+                id="homeButton"
+                onclick="goHome()"
+            >
+                HOME
+            </button>
+
+
+        </div>
+
+
+    </div>
+
+
+
+<script>
+
+
+function getMemberId() {
+
+    const params =
+        new URLSearchParams(
+            window.location.search
+        );
+
+    return params.get("id");
+
+}
+
+
+
+async function createQRCode(memberId) {
+
+
+    const qrImage =
+        document.getElementById(
+            "qrImage"
+        );
+
+
+    const qrLoading =
+        document.getElementById(
+            "qrLoading"
+        );
+
+
+    const status =
+        document.getElementById(
+            "qrStatus"
+        );
+
+
+    try {
+
+
+        status.textContent =
+            "GENERATING QR...";
+
+
+        const response =
+            await fetch(
+                "/api/qr/" +
+                encodeURIComponent(
+                    memberId
+                )
+            );
+
+
+        const data =
+            await response.json();
+
+
+        console.log(
+            "QR RESPONSE:",
+            data
+        );
+
+
+        if (
+            !response.ok ||
+            data.ok !== true ||
+            !data.qr
+        ) {
+
+            throw new Error(
+                data.error ||
+                "QR generation failed."
+            );
+
+        }
+
+
+        qrImage.onload =
+            function () {
+
+
+                qrLoading.style.display =
+                    "none";
+
+
+                qrImage.style.display =
+                    "block";
+
+
+                status.textContent =
+                    "QR READY ✓";
+
+
+            };
+
+
+        qrImage.onerror =
+            function () {
+
+
+                qrLoading.textContent =
+                    "QR FAILED";
+
+
+                status.textContent =
+                    "QR IMAGE FAILED";
+
+
+                console.error(
+                    "QR IMAGE FAILED"
+                );
+
+
+            };
+
+
+        qrImage.src =
+            data.qr;
+
+
+        return true;
+
+
+    } catch (error) {
+
+
+        console.error(
+            "QR ERROR:",
+            error
+        );
+
+
+        qrLoading.textContent =
+            "QR FAILED";
+
+
+        status.textContent =
+            "QR GENERATION FAILED";
+
+
+        return false;
+
+    }
+
+}
+
+
+
+async function loadMember() {
+
+
+    const memberId =
+        getMemberId();
+
+
+    console.log(
+        "MEMBER ID:",
+        memberId
+    );
+
+
+    if (!memberId) {
+
+        showError(
+            "No member ID was provided."
+        );
+
+        return;
+
+    }
+
+
+    try {
+
+
+        const response =
+            await fetch(
+                "/api/verify/" +
+                encodeURIComponent(
+                    memberId
+                )
+            );
+
+
+        const data =
+            await response.json();
+
+
+        console.log(
+            "VERIFY RESPONSE:",
+            data
+        );
+
+
+        if (
+            !response.ok ||
+            data.ok !== true ||
+            data.verified !== true ||
+            !data.member
+        ) {
+
+            throw new Error(
+                data.error ||
+                "Member not found."
+            );
+
+        }
+
+
+        const member =
+            data.member;
+
+
+        document.getElementById(
+            "memberName"
+        ).textContent =
+            member.name ||
+            "N/A";
+
+
+        document.getElementById(
+            "memberId"
+        ).textContent =
+            member.memberId ||
+            memberId;
+
+
+        document.getElementById(
+            "gender"
+        ).textContent =
+            member.gender ||
+            "N/A";
+
+
+        document.getElementById(
+            "phone"
+        ).textContent =
+            member.phone ||
+            "N/A";
+
+
+        let dateValue =
+            member.verificationDate ||
+            member.approvedAt ||
+            member.submittedAt ||
+            "";
+
+
+        if (dateValue) {
+
+
+            const date =
+                new Date(
+                    dateValue
+                );
+
+
+            if (
+                !isNaN(
+                    date.getTime()
+                )
+            ) {
+
+                dateValue =
+                    date.toLocaleDateString(
+                        undefined,
+                        {
+                            year:
+                                "numeric",
+
+                            month:
+                                "long",
+
+                            day:
+                                "numeric"
+                        }
+                    );
+
+            }
+
+        }
+
+
+        document.getElementById(
+            "verificationDate"
+        ).textContent =
+            dateValue ||
+            "N/A";
+
+
+        const profile =
+            document.getElementById(
+                "profileImage"
+            );
+
+
+        if (
+            member.profileImage
+        ) {
+
+            profile.src =
+                member.profileImage;
+
+        } else {
+
+            profile.src =
+                "/logo.jpg";
+
+        }
+
+
+        document.getElementById(
+            "loading"
+        ).style.display =
+            "none";
+
+
+        document.getElementById(
+            "idCard"
+        ).style.display =
+            "block";
+
+
+        document.getElementById(
+            "buttons"
+        ).style.display =
+            "flex";
+
+
+        await createQRCode(
+            member.memberId ||
+            memberId
+        );
+
+
+    } catch (error) {
+
+
+        console.error(
+            "LOAD MEMBER ERROR:",
+            error
+        );
+
+
+        showError(
+            error.message ||
+            "Unable to verify this member."
+        );
+
+    }
+
+}
+
+
+
+function showError(message) {
+
+
+    document.getElementById(
+        "loading"
+    ).style.display =
+        "none";
+
+
+    document.getElementById(
+        "idCard"
+    ).style.display =
+        "none";
+
+
+    document.getElementById(
+        "buttons"
+    ).style.display =
+        "none";
+
+
+    document.getElementById(
+        "errorBox"
+    ).style.display =
+        "block";
+
+
+    document.getElementById(
+        "errorMessage"
+    ).textContent =
+        message;
+
+}
+
+
+
+async function saveIDCard() {
+
+
+    const card =
+        document.getElementById(
+            "idCard"
+        );
+
+
+    const button =
+        document.getElementById(
+            "saveButton"
+        );
+
+
+    const qrImage =
+        document.getElementById(
+            "qrImage"
+        );
+
+
+    if (!card) {
+
+        alert(
+            "Digital ID card not found."
+        );
+
+        return;
+
+    }
+
+
+    if (
+        typeof html2canvas ===
+        "undefined"
+    ) {
+
+        alert(
+            "Save system is still loading. Please wait."
+        );
+
+        return;
+
+    }
+
+
+    try {
+
+
+        button.disabled =
+            true;
+
+
+        button.textContent =
+            "PREPARING...";
+
+
+        /*
+         * Wait for QR image.
+         */
+
+        if (
+            qrImage &&
+            qrImage.src &&
+            !qrImage.complete
+        ) {
+
+            await new Promise(
+                function(resolve) {
+
+                    qrImage.onload =
+                        resolve;
+
+                    qrImage.onerror =
+                        resolve;
+
+                }
+            );
+
+        }
+
+
+        await new Promise(
+            resolve =>
+                setTimeout(
+                    resolve,
+                    500
+                )
+        );
+
+
+        button.textContent =
+            "SAVING...";
+
+
+        const canvas =
+            await html2canvas(
+                card,
+                {
+
+                    backgroundColor:
+                        "#071426",
+
+                    scale: 2,
+
+                    useCORS:
+                        true,
+
+                    allowTaint:
+                        false,
+
+                    logging:
+                        false
+
+                }
+            );
+
+
+        const image =
+            canvas.toDataURL(
+                "image/png"
+            );
+
+
+        const memberId =
+            getMemberId() ||
+            "NICEGOLD-MEMBER";
+
+
+        const link =
+            document.createElement(
+                "a"
+            );
+
+
+        link.download =
+            memberId +
+            "-DIGITAL-ID.png";
+
+
+        link.href =
+            image;
+
+
+        document.body.appendChild(
+            link
+        );
+
+
+        link.click();
+
+
+                document.body.appendChild(
+            link
+        );
+
+
+        link.click();
+
+
+        document.body.removeChild(
+            link
+        );
+
+
+        button.textContent =
+            "SAVED ✓";
+
+
+        setTimeout(
+            function() {
+
+                button.textContent =
+                    "SAVE ID CARD";
+
+                button.disabled =
+                    false;
+
+            },
+            2000
+        );
+
+
+    } catch (error) {
+
+
+        console.error(
+            "SAVE ERROR:",
+            error
+        );
+
+
+        button.textContent =
+            "SAVE ID CARD";
+
+
+        button.disabled =
+            false;
+
+
+        alert(
+            "Unable to save the digital ID card. Please try again."
+        );
+
+    }
+
+}
+
+
+
+function goHome() {
+
+    window.location.href =
+        "/";
+
+}
+
+
+
+document.addEventListener(
+    "DOMContentLoaded",
+    function() {
+
+        loadMember();
+
+    }
+);
+
+
+</script>
+
+
+</body>
+
+</html>
