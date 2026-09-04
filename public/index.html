@@ -514,7 +514,141 @@ footer strong{
     padding:25px 18px;
   }
 }
-</style></head><body><div class="background">  <div class="orb orb1"></div>
+
+/* ================= VISITOR ID CARD ================= */
+
+.visitor-id-card{
+  width:min(430px,100%);
+  margin:30px auto 0;
+  padding:22px;
+  border-radius:24px;
+
+  background:
+    linear-gradient(
+      135deg,
+      rgba(25,150,255,.16),
+      rgba(255,255,255,.055)
+    );
+
+  border:1px solid rgba(91,194,255,.28);
+
+  backdrop-filter:blur(25px);
+  -webkit-backdrop-filter:blur(25px);
+
+  box-shadow:
+    0 20px 55px rgba(0,0,0,.28),
+    0 0 35px rgba(0,130,255,.12),
+    inset 0 1px rgba(255,255,255,.1);
+
+  position:relative;
+  overflow:hidden;
+}
+
+.visitor-id-card::before{
+  content:"";
+  position:absolute;
+  width:150px;
+  height:150px;
+  background:#008cff;
+  filter:blur(70px);
+  opacity:.15;
+  top:-90px;
+  right:-60px;
+  border-radius:50%;
+}
+
+.id-card-top{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  margin-bottom:16px;
+}
+
+.id-label{
+  display:flex;
+  align-items:center;
+  gap:9px;
+  color:#9fc8e9;
+  font-size:10px;
+  font-weight:900;
+  letter-spacing:1.5px;
+}
+
+.id-icon{
+  width:35px;
+  height:35px;
+  display:grid;
+  place-items:center;
+  border-radius:11px;
+
+  background:rgba(30,150,255,.14);
+  border:1px solid rgba(80,190,255,.22);
+
+  font-size:16px;
+}
+
+.id-status{
+  font-size:9px;
+  font-weight:900;
+  color:#72c8ff;
+  padding:6px 10px;
+  border-radius:20px;
+  background:rgba(30,150,255,.1);
+  border:1px solid rgba(80,190,255,.18);
+}
+
+.id-number{
+  padding:17px 15px;
+  border-radius:15px;
+
+  background:rgba(0,0,0,.18);
+  border:1px solid rgba(255,255,255,.08);
+
+  text-align:center;
+
+  font-size:clamp(17px,5vw,23px);
+  font-weight:950;
+  letter-spacing:2px;
+  color:#fff;
+
+  text-shadow:0 0 20px rgba(60,180,255,.45);
+
+  word-break:break-all;
+}
+
+.copy-id{
+  width:100%;
+  margin-top:12px;
+  padding:12px;
+
+  border:0;
+  border-radius:13px;
+
+  color:white;
+  font-size:10px;
+  font-weight:900;
+
+  background:linear-gradient(135deg,#087fff,#19adff);
+
+  cursor:pointer;
+
+  box-shadow:0 8px 25px rgba(0,130,255,.22);
+  transition:.25s;
+}
+
+.copy-id:hover{
+  transform:translateY(-2px);
+  box-shadow:0 12px 30px rgba(0,130,255,.35);
+}
+
+.copy-id:active{
+  transform:scale(.98);
+}
+  
+</style>
+</head>
+  <body>
+    <div class="background">  <div class="orb orb1"></div>
   <div class="orb orb2"></div>
   <div class="orb orb3"></div>
   <div class="orb orb4"></div>  <div class="particle p1"></div>
@@ -547,10 +681,39 @@ footer strong{
   ◈ CONTACT US
 </a>
 
-  </div></section><div class="section-title">
+  </div>
+  </section>
+    <div class="section-title">
   <h2>Digital Identity System</h2>
   <p>A simple journey from registration to verified identity.</p>
-</div><section class="cards">  <article class="card"><div class="card-icon">📝</div>
+</div>
+
+<div class="visitor-id-card">
+
+  <div class="id-card-top">
+
+    <div class="id-label">
+      <div class="id-icon">🆔</div>
+      VISITOR ID
+    </div>
+
+    <div class="id-status">
+      ● ACTIVE
+    </div>
+
+  </div>
+
+  <div class="id-number" id="visitorId">
+    NGH-VISITOR
+  </div>
+
+  <button class="copy-id" onclick="copyVisitorId()">
+    📋 COPY VISITOR ID
+  </button>
+
+</div>
+    
+    <section class="cards">  <article class="card"><div class="card-icon">📝</div>
 
 <h3>Register</h3>
 
@@ -623,5 +786,29 @@ footer strong{
     𝗡𝗜𝗖𝗘𝗚𝗢𝗟𝗗₊ ⃝𓉳 ⃝ ＨＩＥＲＳ.𓃵
   </strong>  <br>Digital Identity Portal • © 2026
 
-</footer></div></body>
+</footer></div>
+
+    <script>
+function copyVisitorId(){
+
+  const id = document.getElementById("visitorId").textContent.trim();
+
+  navigator.clipboard.writeText(id).then(() => {
+
+    const button = document.querySelector(".copy-id");
+
+    button.textContent = "✓ ID COPIED";
+
+    setTimeout(() => {
+      button.textContent = "📋 COPY VISITOR ID";
+    }, 1800);
+
+  }).catch(() => {
+    alert("Unable to copy Visitor ID.");
+  });
+
+}
+    </script>
+  
+  </body>
 </html>
